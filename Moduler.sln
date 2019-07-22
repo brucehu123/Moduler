@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Yuhu.Infrastructure", "Yuhu.Infrastructure", "{0A6FB234-9389-47F3-AE73-4A11AF2B2E79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuhu.Infrastructure", "Yuhu.Infrastructure\Yuhu.Infrastructure.csproj", "{EDD2C7E2-54AD-4AE1-B9BC-351672692106}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Yuhu.Modulers", "Yuhu.Modulers", "{EEB65ACE-F892-41E7-ABFA-B991CECA756A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Yuhu.WebApi", "Yuhu.WebApi", "{E4A52E84-392A-46E4-B6FB-44BA7FE12F07}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EDD2C7E2-54AD-4AE1-B9BC-351672692106}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD2C7E2-54AD-4AE1-B9BC-351672692106}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD2C7E2-54AD-4AE1-B9BC-351672692106}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD2C7E2-54AD-4AE1-B9BC-351672692106}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EDD2C7E2-54AD-4AE1-B9BC-351672692106} = {0A6FB234-9389-47F3-AE73-4A11AF2B2E79}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F40C60BA-E68B-4731-A0C1-DF01598A74BD}
+	EndGlobalSection
+EndGlobal
