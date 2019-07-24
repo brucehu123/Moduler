@@ -5,11 +5,13 @@ VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Yuhu.Infrastructure", "Yuhu.Infrastructure", "{0A6FB234-9389-47F3-AE73-4A11AF2B2E79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuhu.Infrastructure", "Yuhu.Infrastructure\Yuhu.Infrastructure.csproj", "{EDD2C7E2-54AD-4AE1-B9BC-351672692106}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuhu.Infrastructure", "Yuhu.Infrastructure\Yuhu.Infrastructure.csproj", "{EDD2C7E2-54AD-4AE1-B9BC-351672692106}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Yuhu.Modulers", "Yuhu.Modulers", "{EEB65ACE-F892-41E7-ABFA-B991CECA756A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Yuhu.WebApi", "Yuhu.WebApi", "{E4A52E84-392A-46E4-B6FB-44BA7FE12F07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{8A1176DE-2F3C-420A-9BCC-C3A6FCE039B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,12 +23,17 @@ Global
 		{EDD2C7E2-54AD-4AE1-B9BC-351672692106}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDD2C7E2-54AD-4AE1-B9BC-351672692106}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDD2C7E2-54AD-4AE1-B9BC-351672692106}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A1176DE-2F3C-420A-9BCC-C3A6FCE039B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A1176DE-2F3C-420A-9BCC-C3A6FCE039B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A1176DE-2F3C-420A-9BCC-C3A6FCE039B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A1176DE-2F3C-420A-9BCC-C3A6FCE039B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EDD2C7E2-54AD-4AE1-B9BC-351672692106} = {0A6FB234-9389-47F3-AE73-4A11AF2B2E79}
+		{8A1176DE-2F3C-420A-9BCC-C3A6FCE039B9} = {E4A52E84-392A-46E4-B6FB-44BA7FE12F07}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F40C60BA-E68B-4731-A0C1-DF01598A74BD}
