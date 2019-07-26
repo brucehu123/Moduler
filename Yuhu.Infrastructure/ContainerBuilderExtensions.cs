@@ -82,6 +82,9 @@ namespace Yuhu.Infrastructure
 
             //builder.Services.Register(provider => new ModuleProvider()).As<IModuleProvider>().SingleInstance();
             #endregion
+            //todo: 读取配置文件
+            //todo: 加载List<AbstractModule>()
+            //todo: 注入IModuleProvider
             return builder;
         }
     }
