@@ -71,16 +71,16 @@ namespace Yuhu.Infrastructure
             return string.IsNullOrEmpty(name) ? GetInstances(type) : _container.ResolveKeyed(name, type);
         }
 
-        public object GetInstances(string name, Type type)
-        {
-            // var appConfig = AppConfig.DefaultInstance;
-            var objInstance = ServiceResolver.Current.GetService(type, name);
-            if (objInstance == null)
-            {
-                objInstance = string.IsNullOrEmpty(name) ? GetInstances(type) : _container.ResolveKeyed(name, type);
-                ServiceResolver.Current.Register(name, objInstance, type);
-            }
-            return objInstance;
-        }
+        //public object GetInstances(string name, Type type)
+        //{
+        //    // var appConfig = AppConfig.DefaultInstance;
+        //    var objInstance = ServiceResolver.Current.GetService(type, name);
+        //    if (objInstance == null)
+        //    {
+        //        objInstance = string.IsNullOrEmpty(name) ? GetInstances(type) : _container.ResolveKeyed(name, type);
+        //        ServiceResolver.Current.Register(name, objInstance, type);
+        //    }
+        //    return objInstance;
+        //}
     }
 }

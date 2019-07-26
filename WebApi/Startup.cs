@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Yuhu.Infrastructure;
+using Yuhu.Infrastructure.Dependency;
 
 namespace WebApi
 {
@@ -22,10 +24,11 @@ namespace WebApi
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            //RegisterAutofac(services);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            return RegisterAutofac(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,7 +42,11 @@ namespace WebApi
             app.UseMvc();
         }
 
+        private IServiceProvider RegisterAutofac(IServiceCollection services)
+        {
+            var bootstrap = new AutofacBootstrap();
+            return bootstrap.Initialize(services);
+        }
 
-       
     }
 }

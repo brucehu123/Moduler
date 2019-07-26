@@ -18,6 +18,11 @@ namespace Yuhu.Infrastructure.Dependency
 
             builder.Populate(services);
 
+            builder.ConfigureServices(option =>
+            {
+                option.RegisterModules();
+            });
+
             ServiceLocator.Current = builder.Build();
             builder.Register(m => new CPlatformContainer(ServiceLocator.Current));
             return new AutofacServiceProvider(ServiceLocator.Current);
