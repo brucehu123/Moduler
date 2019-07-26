@@ -36,11 +36,7 @@ namespace Yuhu.Infrastructure.Modules
             TypeName = this.GetType().BaseType.FullName;
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
+      
         protected override void Load(ContainerBuilder builder)
         {
             try
@@ -64,5 +60,11 @@ namespace Yuhu.Infrastructure.Modules
         {
 
         }
+
+        public virtual void Dispose()
+        {
+
+        }
+
     }
 }

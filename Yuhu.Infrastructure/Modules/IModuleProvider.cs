@@ -7,5 +7,7 @@ namespace Yuhu.Infrastructure.Modules
     public interface IModuleProvider
     {
         List<AbstractModule> Modules { get; }
+
+        void LoadModules();
     }
 }
