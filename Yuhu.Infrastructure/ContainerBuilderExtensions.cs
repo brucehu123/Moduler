@@ -1,8 +1,12 @@
 ﻿using Autofac;
+using Microsoft.Extensions.DependencyModel;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using Yuhu.Infrastructure.Modules;
 
 namespace Yuhu.Infrastructure
@@ -56,36 +60,81 @@ namespace Yuhu.Infrastructure
 
         public static IServiceBuilder RegisterModules(this IServiceBuilder builder)
         {
-            var services = builder.Services;
             if (builder == null) throw new ArgumentNullException("builder");
-            #region MyRegion
-            //var packages = ConvertDictionary(AppConfig.ServerOptions.Packages);
-            //foreach (var moduleAssembly in referenceAssemblies)
-            //{
-            //    GetAbstractModules(moduleAssembly).ForEach(p =>
-            //    {
-            //        services.RegisterModule(p);
-            //        if (packages.ContainsKey(p.TypeName))
-            //        {
-            //            var useModules = packages[p.TypeName];
-            //            if (useModules.AsSpan().IndexOf(p.ModuleName) >= 0)
-            //                p.Enable = true;
-            //            else
-            //                p.Enable = false;
-            //        }
-            //        _modules.Add(p);
-            //    });
-            //}
-            //builder.Services.Register(provider => new ModuleProvider(
-            //   _modules, virtualPaths, provider.Resolve<ILogger<ModuleProvider>>(), provider.Resolve<CPlatformContainer>()
-            //    )).As<IModuleProvider>().SingleInstance();
+            var services = builder.Services;
 
-            //builder.Services.Register(provider => new ModuleProvider()).As<IModuleProvider>().SingleInstance();
-            #endregion
             //todo: 读取配置文件
             //todo: 加载List<AbstractModule>()
             //todo: 注入IModuleProvider
+            var referenceAssemblies = GetAssemblies();
+            foreach (var moduleAssembly in referenceAssemblies)
+            {
+                GetAbstractModules(moduleAssembly).ForEach(s =>
+                {
+                    services.RegisterModule(s);
+
+                    //todo:从配置文件里确定module是否启用
+
+                    _modules.Add(s);
+                });
+            }
+            services.Register(provider => new ModuleProvider(
+                _modules, provider.Resolve<ILogger<ModuleProvider>>(), provider.Resolve<CPlatformContainer>()
+                )).As<IModuleProvider>().SingleInstance();
             return builder;
+        }
+
+
+        private static List<Assembly> GetAssemblies()
+        {
+            var referenceAssemblies = new List<Assembly>();
+            string[] assemblyNames = DependencyContext
+                    .Default.GetDefaultAssemblyNames().Select(p => p.Name).ToArray();
+            assemblyNames = GetFilterAssemblies(assemblyNames);
+            foreach (var name in assemblyNames)
+                referenceAssemblies.Add(Assembly.Load(name));
+            _referenceAssembly.AddRange(referenceAssemblies.Except(_referenceAssembly));
+
+            return referenceAssemblies;
+        }
+
+        private static List<AbstractModule> GetAbstractModules(Assembly assembly)
+        {
+            var abstractModules = new List<AbstractModule>();
+            Type[] arrayModule =
+                assembly.GetTypes().Where(
+                    t => t.IsSubclassOf(typeof(AbstractModule))).ToArray();
+            foreach (var moduleType in arrayModule)
+            {
+                var abstractModule = (AbstractModule)Activator.CreateInstance(moduleType);
+                abstractModules.Add(abstractModule);
+            }
+            return abstractModules;
+        }
+
+
+        private static string[] GetFilterAssemblies(string[] assemblyNames)
+        {
+            //var notRelatedFile = AppConfig.ServerOptions.NotRelatedAssemblyFiles;
+            //var relatedFile = AppConfig.ServerOptions.RelatedAssemblyFiles;
+            string notRelatedFile = null;
+            var relatedFile = "";
+            var pattern = string.Format("^Microsoft.\\w*|^System.\\w*|^DotNetty.\\w*|^runtime.\\w*|^ZooKeeperNetEx\\w*|^StackExchange.Redis\\w*|^Consul\\w*|^Newtonsoft.Json.\\w*|^Autofac.\\w*{0}",
+               string.IsNullOrEmpty(notRelatedFile) ? "" : $"|{notRelatedFile}");
+            Regex notRelatedRegex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            Regex relatedRegex = new Regex(relatedFile, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            if (!string.IsNullOrEmpty(relatedFile))
+            {
+                return
+                    assemblyNames.Where(
+                        name => !notRelatedRegex.IsMatch(name) && relatedRegex.IsMatch(name)).ToArray();
+            }
+            else
+            {
+                return
+                    assemblyNames.Where(
+                        name => !notRelatedRegex.IsMatch(name)).ToArray();
+            }
         }
     }
 }
